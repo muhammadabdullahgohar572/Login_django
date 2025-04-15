@@ -1,0 +1,11 @@
+<!-- registration/account_activation_email.html -->
+{% autoescape off %}
+Hello {{ user.username }},
+
+Here is your activation link:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+If you didn't request this, please ignore this email.
+{% endautoescape %}
+

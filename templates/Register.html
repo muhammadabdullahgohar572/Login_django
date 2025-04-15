@@ -1,0 +1,157 @@
+{% extends "Base.html" %}
+
+
+{% block "Content" %}
+<style>
+    .registration-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .registration-title {
+        color: #343a40;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .registration-form .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .registration-form label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    
+    .registration-form input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+    
+    .registration-form input:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .password-help {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+    
+    .btn-register {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-register:hover {
+        background-color: #218838;
+    }
+    
+    .login-link {
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+    
+    .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+    
+    .success-message {
+        color: #28a745;
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+        background-color: #d4edda;
+        border-radius: 4px;
+    }
+</style>
+
+<div class="registration-container">
+    <h2 class="registration-title">Create Your Account</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <form method="POST" class="registration-form" novalidate>
+        {% csrf_token %}
+        
+        <!-- Username Field -->
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required
+                   value="{% if form.username.value %}{{ form.username.value }}{% endif %}">
+            {% if form.username.errors %}
+                <div class="error-message">{{ form.username.errors.0 }}</div>
+            {% endif %}
+            <small class="password-help">
+                150 characters or fewer. Letters, digits and @/./+/-/_ only.
+            </small>
+        </div>
+        
+        <!-- Email Field -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required
+                   value="{% if form.email.value %}{{ form.email.value }}{% endif %}">
+            {% if form.email.errors %}
+                <div class="error-message">{{ form.email.errors.0 }}</div>
+            {% endif %}
+        </div>
+        
+        <!-- Password Field -->
+        <div class="form-group">
+            <label for="password1">Password</label>
+            <input type="password" id="password1" value="Ilove138200516" name="password1" required>
+            {% if form.password1.errors %}
+                <div class="error-message">{{ form.password1.errors.0 }}</div>
+            {% endif %}
+            <small class="password-help">
+                <ul>
+                    <li>At least 8 characters</li>
+                    <li>Not entirely numeric</li>
+                    <li>Not too common</li>
+                    <li>Not too similar to your username</li>
+                </ul>
+            </small>
+        </div>
+        
+        <!-- Password Confirmation Field -->
+        <div class="form-group">
+            <label for="password2">Password Confirmation</label>
+            <input type="password" id="password2" value="Ilove138200516" name="password2" required>
+            {% if form.password2.errors %}
+                <div class="error-message">{{ form.password2.errors.0 }}</div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="btn-register">Register</button>
+    </form>
+    
+    <div class="login-link">
+        Already have an account? <a href="">Sign In</a>
+    </div>
+</div>
+{% endblock %}
