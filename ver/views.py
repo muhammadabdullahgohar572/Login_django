@@ -55,7 +55,7 @@ def register_user(request):
                 messages.success(request, "Please check your email to complete the registration.")
                 return redirect('home')
             except Exception as e:
-                messages.error(request, f"Failed to send activation email: {str(e)}")
+                messages.error(request, f"{str(e)}")
                 user.delete()
                 return redirect('register')
     
